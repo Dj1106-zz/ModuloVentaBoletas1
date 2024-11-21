@@ -1,0 +1,29 @@
+package DAO;
+
+import DTO.Venta;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class VentaDAO {
+    private List<Venta> ventas;
+
+    public VentaDAO() {
+        this.ventas = new ArrayList<>();
+    }
+
+    public void guardar(Venta venta) {
+        ventas.add(venta);
+    }
+
+    public List<Venta> listarVentas() {
+        return new ArrayList<>(ventas); // Retornar una copia de la lista
+    }
+
+    public Venta buscarPorIndice(int index) {
+        if (index >= 0 && index < ventas.size()) {
+            return ventas.get(index);
+        }
+        return null;
+    }
+}
