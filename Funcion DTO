@@ -1,0 +1,45 @@
+package DTO;
+
+public class Funcion {
+    private int idFuncion;
+    private Sala sala;
+    private Pelicula pelicula;
+    private String horario;
+    private int asientosLibres;
+
+    public Funcion(int idFuncion, Sala sala, Pelicula pelicula, String horario) {
+        this.idFuncion = idFuncion;
+        this.sala = sala;
+        this.pelicula = pelicula;
+        this.horario = horario;
+        this.asientosLibres = sala.getAsientos();
+    }
+
+    public int getIdFuncion() {
+        return idFuncion;
+    }
+
+    public Sala getSala() {
+        return sala;
+    }
+
+    public Pelicula getPelicula() {
+        return pelicula;
+    }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public int getAsientosLibres() {
+        return asientosLibres;
+    }
+
+    public void reservarAsientos(int cantidad) {
+        if (cantidad <= asientosLibres) {
+            asientosLibres -= cantidad;
+        } else {
+            throw new IllegalArgumentException("No hay suficientes asientos disponibles.");
+        }
+    }
+}
