@@ -1,0 +1,44 @@
+package DTO;
+
+import java.io.Serializable;
+
+public class Sala implements Serializable {
+    private int numeroSala;
+    private Pelicula pelicula;
+    private int asientos;
+    
+    public Sala(int numeroSala) {
+        this.numeroSala = numeroSala;
+        this.asientos = 15; // El aforo por defecto es 15 asientos por sala
+        this.pelicula = null; // Al principio no hay película asignada
+    }
+
+    public int getNumeroSala() {
+        return numeroSala;
+    }
+
+    public Pelicula getPelicula() {
+        return pelicula;
+    }
+
+    public int getAsientos() {
+        return asientos;
+    }
+
+    // Asigna una película a la sala
+    public void asignarPelicula(Pelicula pelicula) {
+        this.pelicula = pelicula;
+    }
+
+    // Método para verificar si hay asientos disponibles
+    public boolean hayAsientosDisponibles() {
+        return asientos > 0;
+    }
+
+    // Método para asignar un asiento a un cliente
+    public void venderBoleto() {
+        if (hayAsientosDisponibles()) {
+            this.asientos--;
+        }
+    }
+}
