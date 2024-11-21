@@ -1,0 +1,15 @@
+package Main;
+
+import Controlador.ControladorVenta;
+import DAO.VentaDAO;
+import Vista.VistaVenta;
+
+public class Main {
+    public static void main(String[] args) {
+        VentaDAO ventaDAO = new VentaDAO();
+        ControladorVenta controlador = new ControladorVenta(ventaDAO);
+        VistaVenta vista = new VistaVenta(controlador);
+
+        vista.iniciar();
+    }
+}
