@@ -1,0 +1,52 @@
+package Controlador;
+
+import DAO.VentaDAO;
+import DTO.Funcion;
+import DTO.Venta;
+
+public class ControladorVenta {
+    private VentaDAO ventaDAO;
+
+    public ControladorVenta(VentaDAO ventaDAO) {
+        this.ventaDAO = ventaDAO;
+    }
+
+    public String realizarVenta(Funcion funcion, int cantidadBoletas) {
+        if (cantidadBoletas <= funcion.getAsientosLibres()) {
+            double valorBoleta = calcularPrecioPorSala(funcion.getSala().getNumeroSala());
+            Venta venta = new Venta(funcion, cantidadBoletas, valorBoleta);
+            funcion.reservarAsientos(cantidadBoletas);
+            ventaDAO.guardar(venta);
+
+            return "Venta realizada con éxito:\n" +
+                    "Película: " + funcion.getPelicula().getNombre() + "\n" +
+                    "Sala: " + funcion.getSala().getNumeroSala() + "\n" +
+                    "Horario: " + funcion.getHorario() + "\n" +
+                    "Boletas: " + cantidadBoletas + "\n" +
+                    "Total: $" + venta.calcularTotal();
+        } else {
+            return "Error: No hay suficientes asientos disponibles.";
+        }
+    }
+
+    public void mostrarVentas() {
+        for (Venta venta : ventaDAO.listarVentas()) {
+            System.out.println("Fecha: " + venta.getFechaVenta());
+            System.out.println("Película: " + venta.getFuncion().getPelicula().getNombre());
+            System.out.println("Sala: " + venta.getFuncion().getSala().getNumeroSala());
+            System.out.println("Horario: " + venta.getFuncion().getHorario());
+            System.out.println("Cantidad de Boletas: " + venta.getCantidadBoletas());
+            System.out.println("Total: $" + venta.calcularTotal());
+            System.out.println("-----------------------------");
+        }
+    }
+
+    private double calcularPrecioPorSala(int numeroSala) {
+        return switch (numeroSala) {
+            case 1 -> 8000.0;
+            case 2 -> 10000.0;
+            case 3 -> 12000.0;
+            default -> 0.0; // Por seguridad
+        };
+    }
+}
