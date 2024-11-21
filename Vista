@@ -1,0 +1,52 @@
+package Vista;
+
+import Controlador.ControladorVenta;
+import DTO.Funcion;
+import DTO.Pelicula;
+import DTO.Sala;
+
+import java.util.Scanner;
+
+public class VistaVenta {
+    private ControladorVenta controlador;
+
+    public VistaVenta(ControladorVenta controlador) {
+        this.controlador = controlador;
+    }
+
+    public void iniciar() {
+        Scanner scanner = new Scanner(System.in);
+        int opcion;
+
+        do {
+            System.out.println("\n--- Menú Venta de Boletas ---");
+            System.out.println("1. Realizar venta");
+            System.out.println("2. Mostrar ventas");
+            System.out.println("0. Salir");
+            System.out.print("Seleccione una opción: ");
+            opcion = scanner.nextInt();
+
+            switch (opcion) {
+                case 1 -> realizarVenta();
+                case 2 -> controlador.mostrarVentas();
+                case 0 -> System.out.println("Saliendo...");
+                default -> System.out.println("Opción no válida.");
+            }
+        } while (opcion != 0);
+    }
+
+    private void realizarVenta() {
+        Scanner scanner = new Scanner(System.in);
+
+        // Crear datos ficticios para demostrar
+        Sala sala = new Sala(1);
+        Pelicula pelicula = new Pelicula("Ejemplo", "Director", "PG", "Actor", 1);
+        Funcion funcion = new Funcion(1, sala, pelicula, "3:40 pm");
+
+        System.out.print("Ingrese la cantidad de boletas: ");
+        int cantidad = scanner.nextInt();
+
+        String resultado = controlador.realizarVenta(funcion, cantidad);
+        System.out.println(resultado);
+    }
+}
