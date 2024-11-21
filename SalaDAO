@@ -1,0 +1,53 @@
+package DAO;
+
+import DTO.Sala;
+import java.util.ArrayList;
+import java.util.List;
+
+public class SalaDAO implements ISala {
+    private List<Sala> salas;
+
+    public SalaDAO() {
+        this.salas = new ArrayList<>();
+    }
+
+    @Override
+    public void guardar(Sala sala) {
+        salas.add(sala); // Agrega la sala a la lista de salas
+    }
+
+    @Override
+    public Sala buscarPorNumero(int numeroSala) {
+        for (Sala sala : salas) {
+            if (sala.getNumeroSala() == numeroSala) {
+                return sala; // Devuelve la sala si encuentra una con ese número
+            }
+        }
+        return null; // Si no encuentra la sala, retorna null
+    }
+
+    @Override
+    public boolean actualizar(Sala salaActualizada) {
+        Sala salaExistente = buscarPorNumero(salaActualizada.getNumeroSala());
+        if (salaExistente != null) {
+            salaExistente.asignarPelicula(salaActualizada.getPelicula()); // Actualiza la película asignada
+            return true; // Si la sala fue actualizada correctamente
+        }
+        return false; // Si no encontró la sala
+    }
+
+    @Override
+    public boolean eliminar(int numeroSala) {
+        Sala sala = buscarPorNumero(numeroSala);
+        if (sala != null) {
+            salas.remove(sala); // Elimina la sala de la lista
+            return true;
+        }
+        return false; // Si no encuentra la sala, no la puede eliminar
+    }
+
+    @Override
+    public List<Sala> listarTodas() {
+        return new ArrayList<>(salas); // Retorna una copia de la lista de salas
+    }
+}
