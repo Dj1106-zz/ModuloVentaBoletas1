@@ -1,0 +1,37 @@
+package DTO;
+
+import java.time.LocalDate;
+
+public class Venta {
+    private Funcion funcion;
+    private int cantidadBoletas;
+    private LocalDate fechaVenta;
+    private double valorBoleta;
+
+    public Venta(Funcion funcion, int cantidadBoletas, double valorBoleta) {
+        this.funcion = funcion;
+        this.cantidadBoletas = cantidadBoletas;
+        this.fechaVenta = LocalDate.now();
+        this.valorBoleta = valorBoleta;
+    }
+
+    public Funcion getFuncion() {
+        return funcion;
+    }
+
+    public int getCantidadBoletas() {
+        return cantidadBoletas;
+    }
+
+    public LocalDate getFechaVenta() {
+        return fechaVenta;
+    }
+
+    public double getValorBoleta() {
+        return valorBoleta;
+    }
+
+    public double calcularTotal() {
+        return cantidadBoletas * valorBoleta;
+    }
+}
