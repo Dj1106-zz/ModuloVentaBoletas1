@@ -1,7 +1,6 @@
 package DAO;
 
 import DTO.Venta;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,18 +11,39 @@ public class VentaDAO {
         this.ventas = new ArrayList<>();
     }
 
+    // Agrega una nueva venta a la lista
     public void guardar(Venta venta) {
         ventas.add(venta);
     }
 
-    public List<Venta> listarVentas() {
-        return new ArrayList<>(ventas); // Retornar una copia de la lista
+    // Busca una venta por su índice en la lista
+    public Venta buscarPorIndice(int indice) {
+        if (indice >= 0 && indice < ventas.size()) {
+            return ventas.get(indice); // Devuelve la venta si el índice es válido
+        }
+        return null; // Retorna null si el índice no es válido
     }
 
-    public Venta buscarPorIndice(int index) {
-        if (index >= 0 && index < ventas.size()) {
-            return ventas.get(index);
+    // Actualiza una venta en una posición específica
+    public boolean actualizar(int indice, Venta ventaActualizada) {
+        if (indice >= 0 && indice < ventas.size()) {
+            ventas.set(indice, ventaActualizada); // Reemplaza la venta en el índice dado
+            return true; // Indica que la actualización fue exitosa
         }
-        return null;
+        return false; // Si el índice no es válido, no se actualiza
+    }
+
+    // Elimina una venta por su índice
+    public boolean eliminar(int indice) {
+        if (indice >= 0 && indice < ventas.size()) {
+            ventas.remove(indice); // Elimina la venta del índice dado
+            return true;
+        }
+        return false; // Si el índice no es válido, no se elimina
+    }
+
+    // Retorna todas las ventas en la lista
+    public List<Venta> listarTodas() {
+        return new ArrayList<>(ventas); // Retorna una copia de la lista de ventas
     }
 }
